@@ -1,1 +1,1 @@
-Robocuo Soccer
+Robocup Soccer Small Size
