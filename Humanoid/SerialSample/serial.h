@@ -1,7 +1,7 @@
 /*--------------------------------------------------
-	ƒVƒŠƒAƒ‹’ÊM ver 1.0
+	ã‚·ãƒªã‚¢ãƒ«é€šä¿¡ ver 1.0
 
-	2013/08/21 -
+	2013/08/21 -    by.Motoki Uno
 
 --------------------------------------------------*/
 
@@ -26,7 +26,7 @@ public:
 	int WriteByte(unsigned char singleByte);
 	int ReadByte(unsigned char singleByte);
 
-	//î•ñæ“¾
+	//æƒ…å ±å–å¾—
 	int getRate(){
 		return _rate;
 	}

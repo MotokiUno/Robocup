@@ -11,10 +11,10 @@ serial::~serial(){
 
 bool serial::Setup(std::string name, int rate){
 	if(rate>0){ _rate = rate; }
-	//ƒVƒŠƒAƒ‹ƒ|[ƒg‚ğŠJ‚­
+	//ã‚·ãƒªã‚¢ãƒ«ãƒãƒ¼ãƒˆã‚’é–‹ã
 	_hCom = CreateFile(name.c_str(), GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
-	//—LŒø‚©‚Ç‚¤‚©
+	//æœ‰åŠ¹ã‹ã©ã†ã‹
 	if(_hCom==INVALID_HANDLE_VALUE){
 		#ifdef _DEBUG
 			printf("Serial::Unable to open port\n");
@@ -22,7 +22,7 @@ bool serial::Setup(std::string name, int rate){
 		return false;
 	}
 
-	//Œ»İ‚Ìİ’è‚ğæ“¾‚µADCB\‘¢‘Ì‚ÉŠi”[
+	//ç¾åœ¨ã®è¨­å®šã‚’å–å¾—ã—ã€DCBæ§‹é€ ä½“ã«æ ¼ç´
 	COMMCONFIG cfg;
 	DWORD cfgsize = sizeof(cfg);
 	char buf[80];
@@ -31,28 +31,28 @@ bool serial::Setup(std::string name, int rate){
 
 	sprintf(buf,"baud=%d parity=N data=8 stop=1",_rate);
 	if(!BuildCommDCBA(buf,&cfg.dcb)){
-		//BuildCommDCBA@‰ğà@http://msdn.microsoft.com/ja-jp/library/cc429172.aspx
+		//BuildCommDCBAã€€è§£èª¬ã€€http://msdn.microsoft.com/ja-jp/library/cc429172.aspx
 		#ifdef _DEBUG
 			printf("Serial::Unable to build comm dcb\n");
 		#endif
 	}
 
-	//DCB\‘¢‘Ì‚ğ”½‰f‚·‚éB
+	//DCBæ§‹é€ ä½“ã‚’åæ˜ ã™ã‚‹ã€‚
 	if(!SetCommState(_hCom, &cfg.dcb)){
 		#ifdef _DEBUG
 			printf("Serial::Can't set com state\n");
 		#endif
 	}
 
-	//ƒ^ƒCƒ€ƒAƒEƒg‚Ìİ’è
+	//ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã®è¨­å®š
 	COMMTIMEOUTS tout;
-	GetCommTimeouts(_hCom,&tout);//Œ»İ‚Ì’l‚ğæ“¾
+	GetCommTimeouts(_hCom,&tout);//ç¾åœ¨ã®å€¤ã‚’å–å¾—
 
 	tout.ReadIntervalTimeout = MAXDWORD;
 	tout.ReadTotalTimeoutMultiplier = 0;
 	tout.ReadTotalTimeoutConstant = 0;
 
-	SetCommTimeouts(_hCom,&tout);//İ’è‚ğ”½‰f‚·‚éB
+	SetCommTimeouts(_hCom,&tout);//è¨­å®šã‚’åæ˜ ã™ã‚‹ã€‚
 
 	return true;
 }
